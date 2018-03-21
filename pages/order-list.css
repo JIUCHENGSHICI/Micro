@@ -1,0 +1,57 @@
+@charset "UTF-8";
+.order-group {
+  /*列表组*/
+  display: block;
+  width: 100%;
+  background-color: #fff;
+  height: 100px; }
+  .order-group .order-head {
+    /*订单列表头*/
+    width: 100%;
+    background-color: #fff;
+    border-bottom: solid 1px #ddd; }
+    .order-group .order-head .input {
+      display: inline-block;
+      width: 30px;
+      border-right: solid 1px #ddd;
+      text-align: center;
+      padding: 10px 0; }
+    .order-group .order-head .title {
+      padding: 10px 0;
+      display: inline-block; }
+  .order-group .order-list {
+    /*订单列表*/ }
+    .order-group .order-list .order-item {
+      /*订单列表项*/
+      position: relative;
+      background-color: #fff;
+      padding: 10px;
+      border-bottom: solid 1px #ddd; }
+      .order-group .order-list .order-item .head-img {
+        display: inline-block;
+        width: 80px;
+        height: 80px; }
+        .order-group .order-list .order-item .head-img img {
+          max-width: 100%;
+          max-height: 100%;
+          border-radius: 50%; }
+      .order-group .order-list .order-item .info {
+        position: absolute;
+        top: 10px;
+        bottom: 10px;
+        display: inline-block;
+        padding: 0 10px; }
+        .order-group .order-list .order-item .info .title {
+          float: left;
+          font-size: 13px; }
+        .order-group .order-list .order-item .info .info-footer {
+          position: absolute;
+          right: 10px;
+          left: 10px;
+          bottom: 0; }
+          .order-group .order-list .order-item .info .info-footer .money {
+            float: left; }
+          .order-group .order-list .order-item .info .info-footer .num {
+            float: right; }
+  .order-group .order-footer {
+    /*订单列表页脚*/ }

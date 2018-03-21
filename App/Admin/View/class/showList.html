@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>【{$brand.brand_title}】的分类管理</title>
+
+    <include file="App/Admin/View/component/importComponent.html" />
+
+    <link href="__VENDOR__/bootstrap4/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="__ADIST__/component/class/class.css">
+
+    <style>
+        body {
+            padding: 15px
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h3>品牌：【{$brand.brand_title}】的分类管理</h3>
+
+
+    <div class="class-tool">
+
+        <div class="class-tool-item add" data-type='1'>
+            添加一级分类
+        </div>
+        <div class="class-tool-item add" data-type='2'>
+            添加二级分类
+        </div>
+    </div>
+
+    <!-- <div class="tool" id="tool">
+        <div class="tool-item">
+            <span class="fa fa-edit"></span>
+            <span>编辑</span>
+        </div>
+        <div class="tool-item">
+            <span class="fa fa-remove"></span>
+            <span>删除</span>
+        </div>
+    </div> -->
+
+    <div class="class-box">
+
+        <div class="class-left" id="class1App">
+            <ul>
+                <li v-for='(item,index) in items' :key='item.class_id' @click='showClass2(item.class_id)'>
+                    {{item.class_title}}
+                    <div class="tool" :data-level='item.level'>
+                        <div class="tool-item" @click='edit(item.class_id,index)'>
+                            <span class="fa fa-edit"></span>
+                            <span>编辑</span>
+                        </div>
+                        <div class="tool-item" @click='del(item.class_id,index)'>
+                            <span class="fa fa-remove"></span>
+                            <span>删除</span>
+                        </div>
+                    </div>
+                </li>
+                <!-- <li>b
+                    <div class="tool">
+                        <div class="tool-item">
+                            <span class="fa fa-edit"></span>
+                            <span>编辑</span>
+                        </div>
+                        <div class="tool-item">
+                            <span class="fa fa-remove"></span>
+                            <span>删除</span>
+                        </div>
+                    </div>
+                </li> -->
+            </ul>
+        </div>
+        <div class="class-right" id="class2App">
+            <ul>
+                <li v-for='(item,index) in items' :key='item.class_id'>
+                    {{item.class_title}}
+                    <div class="tool" :data-level='item.level'>
+                        <div class="tool-item" @click='edit(item.class_id,index)'>
+                            <span class="fa fa-edit"></span>
+                            <span>编辑</span>
+                        </div>
+                        <div class="tool-item" @click='del(item.class_id,index)'>
+                            <span class="fa fa-remove"></span>
+                            <span>删除</span>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- <li>sadf
+                    <div class="tool">
+                        <div class="tool-item">
+                            <span class="fa fa-edit"></span>
+                            <span>编辑</span>
+                        </div>
+                        <div class="tool-item">
+                            <span class="fa fa-remove"></span>
+                            <span>删除</span>
+                        </div>
+                    </div>
+                </li>
+            </ul> -->
+        </div>
+
+
+
+    </div>
+
+    <script src="__VENDOR__/jquery/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__VENDOR__/bootstrap4/js/popper.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="__VENDOR__/bootstrap4/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+
+    <script src='__ADIST__/component/class/class.js'></script>
+    <script>
+        config.ip = '__MODULE__/Use';
+        config.brand_id = '{$brand.brand_id}';
+        class1App.getList();
+
+        $(function ($) {
+
+            (function () {
+                //添加分类
+                var eventName = 'click';
+                var el = '.add';
+                var fun = function (event) {
+                    var $this = $(this);
+                    var type = $this.attr('data-type');
+                    var super_id = null;
+
+                    if (type == '2') {
+                        if (class1App.activeClass_id == null || class1App.activeClass_id == '') {
+                            layer.msg('必须先选择一个一级分类才能添加二级分类！', {
+                                anim: 6
+                            });
+                            return;
+                        }
+                        super_id = class1App.activeClass_id;
+                    }
+
+                    //添加多个
+                    layer.prompt({
+                        formType: 2,
+                        title: '添加类别，换行可添加多个',
+                        area: ['600px', '350px']
+                    }, function (value, prompt, elem) {
+                        //处理输入的值
+
+                        var arr = strToArr(value, '\n', function (i, arr, element) {
+
+                            var item = {};
+                            item.class_title = element;
+                            item.level = type;
+                            item.brand_id = '{$brand.brand_id}';
+                            item.super_id = super_id;
+                            item.sort = i;
+                            return item;
+
+                        });
+                        //重复检查
+                        if (type == '1') {
+                            //检查一级分类
+                            //先检查输入的内容是否重复
+                            for (var i = 0; i < arr.length; i++) {
+                                var item_i = arr[i];
+                                var title_i = item_i.class_title;
+
+                                for (let j = 0; j < arr.length; j++) {
+                                    var item_j = arr[j];
+                                    var title_j = item_j.class_title;
+                                    if (i != j) {
+                                        if (title_i == title_j) {
+                                            layer.msg('一级分类:【' + title_i + '】检测到重名！请修改后重试。');
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+
+                        //执行服务器检查
+
+                        (function () {
+
+                            var url = '__MODULE__/use/getList';
+                            var obj = {
+                                table: 'class',
+                                where: {
+                                    brand_id: config.brand_id,
+                                    level: type
+                                }
+                            };
+                            if (type == '2') {
+                                //如果是二级分类，就得让一级分类当做条件
+                                obj.where.super_id = class1App.activeClass_id;
+                            }
+
+                            var fun = function (res) {
+
+                                try {
+                                    res = JSON.parse(res);
+                                } catch (error) {
+                                    //转换错误
+                                    return
+                                }
+
+
+                                if (res.res > 0) {
+                                    //有数据，执行查找
+                                    //先检查输入的内容是否重复
+                                    for (var i = 0; i < res.msg.length; i++) {
+                                        var item_i = res.msg[i];
+                                        var title_i = item_i.class_title;
+                                        for (let j = 0; j < arr.length; j++) {
+                                            var item_j = arr[j];
+                                            var title_j = item_j.class_title;
+                                            if (title_i == title_j) {
+                                                if (type == '1') {
+                                                    layer.msg('一级分类:【' + title_i + '】已存在！请修改后重试。');
+                                                } else {
+                                                    layer.msg('二级分类:【' + title_i + '】已存在！请修改后重试。');
+                                                }
+
+                                                return;
+                                            }
+                                        }
+                                    }
+                                }
+                                // 到这就是没有重复的
+                                addAll({
+                                    table: 'class',
+                                    add: arr,
+                                }).yes(function (res) {
+                                    //转换正确
+                                    if (res.res > 0) {
+                                        //添加成功了
+                                        layer.msg('添加成功~');
+                                        layer.close(prompt);
+
+                                        if (type == '1') {
+                                            class1App.getList();
+                                        } else {
+                                            class1App.showClass2(class1App.activeClass_id);
+                                        }
+
+                                    } else {
+                                        //添加失败了
+                                        layer.msg('添加失败', {
+                                            anim: 6
+                                        });
+                                    }
+
+                                }).no(function (res) {
+                                    w(res);
+                                    //转换失败
+                                    //传回来的不是json
+                                    layer.msg('异步接口出错！', {
+                                        anim: 6
+                                    });
+                                });
+                            };
+                            $.get(url, obj, fun);
+                        }());
+
+
+
+                    });
+                }
+                $(document).on(eventName, el, fun);
+            }());
+        })
+
+
+
+    </script>
+
+
+</body>
+
+</html>

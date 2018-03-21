@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+	<title>分类</title>
+	<link rel="stylesheet" type="text/css" href="__VENDOR__/amazeui/css/amazeui.css" />
+	<!-- <link rel="stylesheet" type="text/css" href="__VENDOR__/swiper/3.4.2/swiper.min.css" /> -->
+	<link rel="stylesheet" href="__VENDOR__/swiper/4.0.5/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="__HDIST__/source/font/iconfont.css" />
+	<link rel="stylesheet" type="text/css" href="__HDIST__/a/a.css" />
+	<link rel="stylesheet" type="text/css" href="__HDIST__/class/css/class.css" />
+	<style>
+		.z-box {
+			position: fixed;
+			top: 0;
+			bottom: 50px;
+			left: 0;
+			right: 0;
+			overflow: hidden;
+		}
+
+		.top-nav {
+			width: 100%;
+			text-align: center;
+			background-color: #ffffff;
+		}
+
+		.top-nav-item:nth-child(1) {
+			/* border-right: solid 1px #777 */
+		}
+
+		.top-nav-item {
+			display: inline-block;
+			width: 49%;
+			padding: 10px 0;
+		}
+
+		.top-nav-item.active {
+			border-bottom: solid 2px #777;
+
+		}
+
+		.a-panel {
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			transition: all 0.3s;
+			opacity: 0;
+			overflow: hidden;
+			z-index: -1;
+		}
+
+		.a-panel.active {
+			opacity: 1;
+			z-index: 999;
+		}
+
+		.my-panel {
+			overflow: auto;
+			height: 100%;
+			padding-bottom: 100px;
+		}
+
+
+		.a-cf.my-panel-2 {
+			overflow: auto;
+			max-height: 100%;
+			position: absolute;
+			top: 0;
+			bottom: 50px;
+		}
+
+		.my-panel-2 {
+			overflow: auto;
+			max-height: 100%;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<div class="z-box">
+
+		<!--滑动开始-->
+		<div class="top-nav">
+			<div data-active='[data-panel="0"]' class="top-nav-item active">商品</div>
+			<div data-active='[data-panel="1"]' class="top-nav-item  ">分类</div>
+		</div>
+
+		<div class="a-panel active" data-panel='0'>
+			<div class="my-panel ">
+				<div class="pbl">
+					<volist name="goods" id="vo" empty="没有商品">
+						<div class="goods-list-box">
+							<a href="__MODULE__/goodsInfo/goodsInfo/goods_id/{$vo.goods_id}">
+								<!-- <a href="#"> -->
+								<div class="goods-list">
+									<div class="goods-img am-text-middle">
+										<img src="__ROOT__{$vo.head_img}" class="am-text-middle" alt="图片错误！">
+									</div>
+									<div class="goods-info">
+										<div>{$vo.goods_title}</div>
+										<div>{$vo.money}￥</div>
+									</div>
+								</div>
+							</a>
+						</div>
+					</volist>
+				</div>
+			</div>
+
+		</div>
+		<div class="a-panel  " data-panel='1' style="background-color: #fff">
+			<div class="my-panel-2">
+
+				<div id="someTabs" data-am-widget="tabs" data-a-widget="tabs" class="am-tabs am-tabs-default a-tabs a-tabs-default">
+					<!--分类左边的 竖着的选项卡 开始-->
+
+
+					<ul class="am-tabs-nav am-cf a-tabs-nav a-cf my-panel-2">
+
+
+
+						<li class="am-active">
+							<a href="__CONTROLLER__/show/brand_id/{$brand_id}">
+								全部分类
+							</a>
+						</li>
+
+						<volist name='class_1' id="vol" empty='没有分类！'>
+
+
+
+							<li class="">
+								<a href="[data-tab-panel-{$i}]">{$vol.class_title}</a>
+							</li>
+
+
+						</volist>
+
+					</ul>
+					<!--分类左边的 竖着的选项卡 结束-->
+
+
+
+					<div class="am-tabs-bd am-tabs-bd-ofv a-tabs-bd a-tabs-bd-ofv ">
+
+						<div data-tab-panel class="am-tab-panel am-active a-tab-panel">
+
+							<ul class="a-list list-sm">
+								<li>
+									<a href="__CONTROLLER__/show/brand_id/{$brand_id}">
+										查看全部分类商品
+									</a>
+								</li>
+							</ul>
+
+						</div>
+
+						<volist name='class_1' id="vol" empty='没有分类！'>
+							<div data-tab-panel-{$i} class="am-tab-panel a-tab-panel my-panel-2">
+								<!-- 循环class2 -->
+								<ul class="a-list list-sm">
+									<volist name='vol["class_2"]' id="vo" empty='没有分类！'>
+										<li>
+											<a href="__CONTROLLER__/show/brand_id/{$brand_id}/class_id/{$vo.class_id}">
+												<span class="">{$vo.class_title}</span>
+											</a>
+										</li>
+									</volist>
+								</ul>
+							</div>
+						</volist>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+	<!--底部导航栏开始-->
+	<include file="App/Home/View/component/nav.comp.html" />
+	<!--底部导航栏结束-->
+
+	<script src="__VENDOR__/jquery/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__VENDOR__/amazeui/js/amazeui.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__VENDOR__/swiper/3.4.2/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__HDIST__/class/js/class.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__HDIST__/a/a.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__HDIST__/class/js/class.js" type="text/javascript" charset="utf-8"></script>
+
+	<script type="text/javascript">
+
+
+		$(document).on('click touchstart', '.top-nav-item', function () {
+
+			var $this = $(this);
+			$('.top-nav-item').removeClass('active');
+			$this.addClass('active');
+			var panel = $this.attr('data-active');
+			$panel = $(panel);
+			$('.a-panel').removeClass('active');
+			$panel.addClass('active');
+
+		});
+
+
+
+	</script>
+</body>
+
+</html>

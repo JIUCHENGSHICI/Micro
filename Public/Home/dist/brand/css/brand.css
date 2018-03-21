@@ -1,0 +1,113 @@
+/*下边两个是框架中自带的样式*/
+html,
+body {
+	height: 100%;
+	overflow: hidden;
+}
+
+.mui-bar {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+
+/*更改a.css中的body的颜色*/
+
+
+/*改变原本mui框架中的样式 把li的before和after去掉*/
+
+.list-bc {
+	background: #FFFFFF;
+}
+
+.mui-table-view-cell:after {
+	content: none;
+	background-color: transparent;
+}
+
+.mui-table-view-divider:before {
+	content: none;
+	background-color: transparent;
+}
+
+.mui-table-view-divider:after {
+	content: none;
+	background-color: transparent;
+}
+
+.mui-indexed-list-group {
+	background-color: transparent;
+}
+
+.mui-table-view-divider {
+	font-weight: 200;
+	position: relative;
+	margin-top: -1px;
+	margin-left: 0;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	padding-left: 15px;
+	color: #000000;
+	background-color: transparent;
+}
+
+.mui-bar.mui-bar-nav {
+	background: #000000;
+}
+
+
+/*更改顶部的input框的样式*/
+
+input[type=search] {
+	font-size: 16px;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	height: 34px;
+	text-align: center;
+	border: 0;
+	border-radius: 9px;
+	background-color: #FFFFFF;
+}
+
+
+/*更改左侧小的字体 并且加上距离左边的边距*/
+
+.mui-table-view {
+	font-size: 14px;
+	padding-left: 14px;
+}
+
+
+/*更改ABCD的字体*/
+
+.mui-indexed-list-group {
+	font-size: 17px;
+}
+
+
+/*去掉顶部的after*/
+
+.mui-table-view:before {
+	content: none;
+}
+
+
+/*以上是更改mui的样式*/
+
+
+/*加的"品牌"两个字*/
+
+
+/*并且设置了下边的border*/
+
+.brand-font {
+	display: block;
+	text-align: center;
+	line-height: 50px;
+	background-color: white;
+}
+
+.brand-font-line {
+	border-bottom: 1px solid #000000;
+	padding: 5px 30px;
+}

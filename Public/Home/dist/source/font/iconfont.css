@@ -1,0 +1,125 @@
+    @font-face {
+    	font-family: "iconfont";
+    	src: url('iconfont.ttf') format('truetype');
+    	/* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    }
+    
+    .iconfont {
+    	font-family: "iconfont" !important;
+    	font-size: 25px;
+    	font-style: normal;
+    	-webkit-font-smoothing: antialiased;
+    	-webkit-text-stroke-width: 0.2px;
+    }
+    
+    .iconfont {
+    	font-family: "iconfont" !important;
+    	font-size: 25px;
+    	font-style: normal;
+    	-webkit-font-smoothing: antialiased;
+    	-moz-osx-font-smoothing: grayscale;
+    }
+    
+    .icon-jikediancanicon03:before {
+    	content: "\e771";
+    }
+    
+    .icon-fangdajing:before {
+    	content: "\e60b";
+    }
+    
+    .icon-gerenzhongxin:before {
+    	content: "\e668";
+    }
+    
+    .icon-fangzi:before {
+    	content: "\e622";
+    }
+    
+    .icon-gerenzhongxin1:before {
+    	content: "\e6e0";
+    }
+    
+    .icon-home:before {
+    	content: "\e621";
+    }
+    
+    .icon-gouwuche:before {
+    	content: "\e6a8";
+    }
+    
+    .icon-gouwuche1:before {
+    	content: "\e66d";
+    }
+    
+    .icon-1:before {
+    	content: "\e600";
+    }
+    
+    .icon-gouwuche2:before {
+    	content: "\e61d";
+    }
+    
+    .icon-gerenzhongxin2:before {
+    	content: "\e699";
+    }
+    
+    .icon-people:before {
+    	content: "\e64f";
+    }
+    
+    .icon-fangdajing1:before {
+    	content: "\e615";
+    }
+    
+    .icon-pinpai:before {
+    	content: "\e636";
+    }
+    
+    .icon-pinpai1:before {
+    	content: "\e604";
+    }
+    
+    .icon-fangdajing2:before {
+    	content: "\e601";
+    }
+    
+    .icon-qicheqianlian-:before {
+    	content: "\e618";
+    }
+    
+    .icon-gerenzhongxin3:before {
+    	content: "\e605";
+    }
+    
+    .icon-pinpai2:before {
+    	content: "\e646";
+    }
+    
+    .icon-fangzicopy:before {
+    	content: "\e602";
+    }
+    
+    .icon-mjiantou-copy:before {
+    	content: "\e603";
+    }
+    
+    .icon-mjiantou-copy1:before {
+    	content: "\e606";
+    }
+    
+    .icon-arrow-left:before {
+    	content: "\e607";
+    }
+    
+    .icon-mjiantou-copy2:before {
+    	content: "\e608";
+    }
+    
+    .icon-mjiantou-copy3:before {
+    	content: "\e609";
+    }
+    
+    .icon-right:before {
+    	content: "\e60a";
+    }

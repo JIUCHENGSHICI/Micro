@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>测试</title>
+    <link rel="stylesheet" href="Public/vendor/bootstrap4/css/bootstrap.min.css">
+
+
+
+
+    <style>
+        body {
+            background-color: rgb(38, 38, 38);
+            color: #fff;
+            font-size: 13px;
+        }
+
+        .table {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+        }
+
+        .table tr td,
+        .table tr th {
+            vertical-align: middle;
+        }
+
+        .table tr td .vertical-top {
+            vertical-align: top;
+        }
+
+        .progress-bar {
+            transition: all 0.3s;
+        }
+
+        #loadBox {
+            position: fixed;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="test"></div>
+
+    <h1>
+        <a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx9b7ab18e61268efb&redirect_uri=http%3A%2F%2F120.78.162.200%3A12138%2FwShop%2Flogin.php&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect">12312312312</a>
+    </h1>
+
+    <script src='public/vendor/vue/vue.js'></script>
+    <script src='public/vendor/jquery/jquery.js'></script>
+    <link rel="stylesheet" href="Public/vendor/bootstrap4/js/bootstrap.min.js">
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src='public/admin/dist/tool/tool.js'></script>
+
+    <!-- http://127.0.0.1:12138/wShop/test.html -->
+    <script>
+
+        (function () {
+
+            var url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx9b7ab18e61268efb&secret=bcd46807674b9448617438256db6cada&code=061HggAH0TCT7h2zjFzH0yc7AH0HggAs&grant_type=authorization_code";
+            // odLqk0tp_P5pYSQLjqu8qOUruyj8
+
+            var obj = {};
+            var fun = function (res) {
+                $('#test').html(res);
+                w(res);
+                // getUserInfo(res.access_token);
+
+            };
+            $.get(url, obj, fun);
+
+        }());
+
+
+        function getUserInfo(access_token) {
+
+
+            (function () {
+
+                // var url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN ';
+                var obj = {
+                    access_token: access_token
+
+                };
+                var fun = function (res) {
+
+                    try {
+                        res = JSON.parse(res);
+                    } catch (error) {
+                        //转换错误
+                        return
+                    }
+
+                };
+                $.get(url, obj, fun);
+
+            }());
+
+
+
+
+        }
+
+
+    </script>
+
+
+</body>
+
+</html>

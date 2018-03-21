@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>管理员账号管理</title>
+    <include file="App/Admin/View/component/importComponent.html" />
+    <style>
+        body {
+            padding: 15px
+        }
+
+        .fk {
+            height: 300px;
+            width: 100%;
+            /* background-color: #ddd; */
+            border-radius: 10px;
+            border: solid 3px #eee;
+            margin: 100px 0;
+            padding: 30px;
+            display: none;
+        }
+
+        .nav-box {
+            padding: 20px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>管理员账号管理</legend>
+    </fieldset>
+
+
+    <div class="fk" id="xz_nav">
+        <div class="layui-form nav-box" id="navApp">
+
+            <input type="checkbox" :title="item.nav_title">
+
+        </div>
+
+    </div>
+
+
+    <div class="layui-row layui-form">
+        <div class="layui-col-md4">
+            <div class="layui-inline">
+                <input class="layui-input" id="key" placeholder="搜索" autocomplete="off">
+            </div>
+            <button class="layui-btn" id="reload" data-type="reload">搜索</button>
+        </div>
+
+    </div>
+    <div class="layui-row" style="padding-top:10px">
+
+        <div class="layui-btn-group">
+
+            <button class="layui-btn layui-btn-sm" id="add">
+                <i class="layui-icon">&#xe654;</i>新增管理员账号
+            </button>
+            <button class="layui-btn layui-btn-sm" id="removeAll">
+                <i class="layui-icon">&#xe640;</i>批量删除
+            </button>
+        </div>
+
+    </div>
+
+    <table id="table" lay-filter="table_filter"></table>
+
+
+    <script type="text/html" id="bar1">
+
+        <a class="layui-btn layui-btn-sm" lay-event="edit">修改密码</a>
+        <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
+    </script>
+
+    <script>
+
+
+        var tableIns;
+        var table;
+        var active_admin_id;
+        layui.use(['table', 'form'], function () {
+            table = layui.table
+                , form = layui.form;
+            //第一个实例
+            tableIns = table.render({
+                id: 'table'
+                , elem: '#table'
+                , url: '__MODULE__/Config/getList' //数据接口
+                , where: {
+                    table: 'admin',
+                }
+                , response: {
+                    statusCode: 1 //成功的状态码，默认：0
+                }
+                , page: true //开启分页
+                , limit: localStorage.limit == null ? 20 : localStorage.limit
+                // , limits: [5, 10]
+                , cols: [[ //表头
+                    { type: 'checkbox', width: 50, fixed: 'lfet' }
+                    , { field: 'admin_id', title: '账号', width: 100 }
+                    , { fixed: 'right', width: 150, align: 'center', title: '操作', toolbar: '#bar1' } //这里的toolbar值是模板元素的选择器
+                ]]
+            });
+
+
+            //监听工具条
+            table.on('tool(table_filter)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var layEvent = obj.event; //获得 lay-event 对应的值（也可以是表头的 event 参数对应的值）
+                var tr = obj.tr; //获得当前行 tr 的DOM对象
+
+                if (layEvent === 'del') { //删除
+
+                    if (data.admin_id == 'admin') {
+                        layer.msg('不能删除这个admin账号！');
+                        return
+                    }
+
+
+                    layer.confirm('真的删除此条数据吗？', function (index) {
+                        //删除对应行（tr）的DOM结构，并更新缓存
+                        layer.close(index);
+                        //向服务端发送删除指令
+                        var delObj = {
+                            table: 'admin',
+                            id: data.admin_id,
+                        };
+
+                        del(delObj, function () {
+                            obj.del();
+                        })
+
+                    });
+                }
+
+
+                if (layEvent === 'edit') { //编辑
+
+                    var p1;
+                    var p2;
+
+
+                    layer.prompt({
+                        formType: 1,
+                        title: '请输入要修改的密码',
+                    }, function (value, _p1, elem) {
+                        p1 = value;
+                        layer.close(_p1);
+
+                        layer.prompt({
+                            formType: 1,
+                            title: '再次输入密码',
+                        }, function (value, _p2, elem) {
+                            p2 = value;
+                            layer.close(_p2);
+                            if (p1 !== p2) {
+                                layer.msg('两次输入的密码不一致');
+                                return;
+                            }
+
+                            (function () {
+
+                                var url = '__CONTROLLER__/edit';
+                                var obj = {
+                                    admin_id: data.admin_id,
+                                    admin_pwd: p2
+                                };
+                                var fun = function (res) {
+
+                                    try {
+                                        res = JSON.parse(res);
+                                    } catch (error) {
+                                        //转换错误
+                                        layer.msg('修改失败：接口异常！');
+                                        return
+                                    }
+                                    if (res.res > 0) {
+                                        layer.msg('修改成功！');
+                                    } else {
+                                        layer.msg('修改失败：' + res.msg);
+                                    }
+
+                                };
+                                $.post(url, obj, fun);
+
+                            }());
+
+                        });
+
+                    });
+
+                }
+
+            });
+
+        });
+
+        /**
+        数据搜索
+        */
+        $(document).on('click', '#reload', function () {
+
+            var key = $('#key').val();
+            var key_where = 'admin_id|money|admin_title';
+            //执行重载
+            tableIns.reload({
+                page: {
+                    curr: 1 //重新从第 1 页s开始
+                }
+                , where: {
+                    table: 'admin',
+                    key: key,
+                    key_where: key_where
+                }
+                , done: function (res, curr, count) {
+                    //如果是异步请求数据方式，res即为你接口返回的信息。
+                    //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                    console.log(res);
+
+                    //得到当前页码
+                    console.log(curr);
+
+                    //得到数据总量
+                    console.log(count);
+                }
+            });
+
+        });
+
+        $('#add').on('click', function () {
+
+            var admin_id;
+            var admin_pwd;
+            var admin_pwd2;
+
+
+            //账号
+            layer.prompt({
+                formType: 0,
+                title: '请输入新增的账号',
+            }, function (value, _admin_id, elem) {
+                admin_id = value;
+                layer.close(_admin_id);
+
+
+                //密码
+                layer.prompt({
+                    formType: 1,
+                    title: '请输入新增账号的密码',
+                }, function (value, _pwd, elem) {
+                    admin_pwd = value;
+                    layer.close(_pwd);
+
+
+                    //密码2
+                    layer.prompt({
+                        formType: 1,
+                        title: '请再次输入密码',
+                    }, function (value, _pwd2, elem) {
+                        admin_pwd2 = value;
+                        layer.close(_pwd2);
+
+
+                        if (admin_pwd !== admin_pwd2) {
+                            //密码不等
+
+                            layer.msg('两次输入的密码不一致！')
+                            return;
+                        }
+                        w(admin_id);
+                        w(admin_pwd);
+                        w(admin_pwd2);
+
+                        (function () {
+
+                            var url = '__CONTROLLER__/add';
+                            var obj = {
+
+                                admin_id: admin_id,
+                                admin_pwd: admin_pwd2
+
+                            };
+                            var fun = function (res) {
+
+                                try {
+                                    res = JSON.parse(res);
+                                } catch (error) {
+                                    //转换错误
+                                    e(res);
+                                    return
+                                }
+                                if (res.res > 0) {
+
+                                    layer.msg('添加成功！');
+                                    tableIns.reload();
+
+                                } else {
+                                    e(res);
+                                    layer.msg('添加失败：' + res.msg);
+                                }
+
+
+                            };
+                            $.post(url, obj, fun);
+
+                        }());
+
+
+
+
+                    });
+
+
+                });
+
+            });
+
+
+        });
+
+        /**
+         * 批量删除
+         */
+        $(document).on('click', '#removeAll', function () {
+            // w('开始批量删除');
+            var o = table.checkStatus('table');
+            if (o.data.length <= 0) {
+                return;
+            }
+
+            layer.confirm('确定删除这些管理员账号？', function (index) {
+
+                var id = [];
+                for (var i = 0; i < o.data.length; i++) {
+                    if (o.data[i].admin_id == 'admin') {
+                        layer.msg('不能删除这个admin账号！');
+                        return
+                    }
+                    id[i] = o.data[i].admin_id;
+                }
+
+                var obj = {
+                    table: 'admin',
+                    id: id
+                };
+
+                delAll(obj, function (params) {
+                    tableIns.reload();
+                });
+
+            });
+
+        });
+
+
+
+
+    </script>
+</body>
+
+</html>

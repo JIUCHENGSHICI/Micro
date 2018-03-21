@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>wx</title>
+    <include file="App/Admin/View/component/importComponent.html" />
+
+</head>
+
+<body>
+
+
+    <script>
+
+
+        // $.ajax({
+        //     url: '{$url}',
+        //     type: "GET",
+        //     dataType: 'JSONP',
+        //     success: function (result) {
+        //         // $('#test').html(result);
+        //         w(result);
+        //     },
+        //     error: function (xhr, status, error) {
+
+        //         w(xhr);
+        //         w(status);
+        //         w(error);
+
+        //     }
+        // });
+
+
+        getOpenid('{$url}');
+        function getOpenid(url) {
+
+            var fun = function (res) {
+
+                res = JSON.parse(res);
+
+                var access_token = res.access_token;
+                var openid = res.openid;
+                getUserInfo(openid, access_token);
+            };
+            $.get(url, fun);
+
+        }
+
+        function getUserInfo(openid, access_token) {
+            $.get('https://api.weixin.qq.com/sns/userinfo?access_token=' + access_token + '&openid=' + openid + '&lang=zh_CN ', function (res) {
+                try {
+                    res = JSON.parse(res);
+                } catch (error) {
+                    //转换错误
+                }
+                setUserInfo(openid, access_token, res.headimgurl);
+            });
+        }
+
+        function setUserInfo(openid, access_token, headimgurl) {
+
+            (function () {
+
+                var url = '__MODULE__/Login/login';
+                var obj = {
+                    openid: openid,
+                    access_token: access_token,
+                    headimgurl: headimgurl
+                };
+                var fun = function (res) {
+
+                    try {
+                        res = JSON.parse(res);
+                    } catch (error) {
+                        //转换错误
+                        return
+                    }
+
+                };
+                $.post(url, obj, fun);
+
+            }());
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

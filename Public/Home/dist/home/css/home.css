@@ -1,0 +1,21 @@
+		.gallery-thumbs .swiper-slide {
+			/*width: 25%;*/
+			/*display: inline-block;*/
+			/*opacity: 0.4;*/
+			text-align: center;
+			padding: 5px 0px;
+			color: #777777;
+		}
+		
+		.gallery-thumbs .swiper-slide-active {
+			
+		}
+		
+		.gallery-top {
+			overflow-y: auto;
+			position: absolute;
+			top: 57px;
+			left: 0px;
+			bottom: 0px;
+			right: 0px;
+		}

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>微商城后台</title>
+    <include file="App/Admin/View/component/importComponent.html" />
+
+    <style>
+        #iframeBox {
+            position: absolute;
+            /* height: calc(100%); */
+            bottom: 0;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+
+        #fream {
+            position: absolute;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .layui-layout-admin .layui-body {
+            top: 60px;
+            bottom: 0;
+        }
+
+        .hr-black {
+            background-color: #222;
+        }
+
+        .layui-layout-admin .layui-logo {
+            line-height: 3.4em;
+        }
+
+        .layui-layout-admin .layui-side {
+            top: 3.4em;
+
+        }
+
+        .layui-nav-tree .layui-nav-item a {
+            height: 3.7em;
+            line-height: 3.7em;
+        }
+
+        .layui-layout-admin .layui-header {
+            background-color: #2a2a2a;
+            height: 3.7em;
+
+        }
+
+        .layui-nav .layui-nav-item {
+            height: 3.7em;
+            line-height: 3.7em;
+        }
+
+        .layui-layout-admin .layui-header * {
+            color: #ccc;
+        }
+
+        .layui-bg-black {
+            background-color: #2a2a2a!important;
+        }
+
+        .layui-nav {
+            border-top: solid 1px #222;
+            background-color: #2a2a2a;
+            color: #fff;
+        }
+
+        .layui-nav-tree .layui-nav-child dd.layui-this,
+        .layui-nav-tree .layui-nav-child dd.layui-this a,
+        .layui-nav-tree .layui-this,
+        .layui-nav-tree .layui-this>a,
+        .layui-nav-tree .layui-this>a:hover {
+            background-color: #eee;
+            color: #333;
+        }
+
+        .layui-nav .layui-this:after,
+        .layui-nav-bar,
+        .layui-nav-tree .layui-nav-itemed:after {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 0;
+            height: 5px;
+            background-color: #eee;
+            transition: all .2s;
+            -webkit-transition: all .2s;
+        }
+
+        .layui-nav-tree .layui-nav-bar {
+            background-color: #eee;
+        }
+
+        .layui-nav-tree .layui-nav-item a:hover {
+            background-color: #555;
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">
+                <a href="">微商城</a>
+            </div>
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item">
+                    <a href="javascript:;" data-src='Config/showList'>当前账户：{$Think.session.admin_id}</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="{:U('Login/sinOut')}">退出登录</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                    <li class="layui-nav-item">
+                        <a href="javascript:;" data-src='Goods/showList'>商品管理</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;" data-src='Brand/showList'>品牌管理</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;" data-src='Nav/showList'>导航管理</a>
+                    </li>
+                    <hr class="hr-black">
+                    <li class="layui-nav-item">
+                        <a href="javascript:;" data-src='Order/showList'>订单管理</a>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;" data-src='Config/showList'>账号设置</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div id="iframeBox">
+                <!-- <iframe src="__CONTROLLER__/home" id="fream" frameborder="0"></iframe> -->
+                <!-- <iframe src="Exam/showList" id="fream" frameborder="0"></iframe> -->
+                <iframe src="" id="fream" frameborder="0"></iframe>
+            </div>
+        </div>
+
+
+    </div>
+
+
+    <script>
+
+
+
+        layui.use('element', function () {
+            var element = layui.element;
+        });
+        $(function () {
+
+
+
+            if ('{$admin_url}' != null && '{$admin_url}' != '') {
+                $('#fream').attr('src', '{$admin_url}');
+            }
+
+            $('.layui-nav-item').each(function (index) {
+                $(this).attr('id', 'item' + index);
+            })
+
+            // w(localStorage.item_id);
+            $(localStorage.item_id).addClass('layui-this');
+
+
+            $(document).on('click', 'a[href="javascript:;" ]', function () {
+                var index = layer.load(1); //加载等待层
+
+                localStorage.item_id = '#' + $(this).parents('.layui-nav-item').attr('id');
+
+                if (!($(this).attr('data-src') == null)) {
+
+                    $.post('', {
+                        url: $(this).attr('data-src')
+                    }, function (date) {
+                        $('#fream').attr('src', date);
+                        layer.close(index);
+                    })
+                }
+
+            })
+
+        });
+
+
+        (function () {
+            var eventName = 'click';
+            var el = '#setUser';
+            var fun = function (event) {
+                var $this = $(this);
+
+                //例子2
+                layer.prompt({
+                    value: '123123',
+                    title: '请输入新密码',
+                }, function (value, index, elem) {
+
+
+
+                    var url = '__MODULE__/Config/setPwd';
+                    var obj = {
+                        admin_id: "{$Think.session.admin_id}",
+                        admin_pwd: value
+                    };
+                    var fun = function (res) {
+                        try {
+                            res = JSON.parse(res);
+                        } catch (error) {
+                            //转换错误
+                            layer.msg('修改失败1');
+                            return
+                        }
+
+                        if (res.res > 0) {
+
+                            layer.msg('修改成功');
+                            var url = "{:U('Login/sinOut')}";
+                            window.location.href = url;
+
+
+                        } else {
+                            layer.msg('修改失败2');
+                        }
+
+                    };
+                    $.post(url, obj, fun);
+
+
+
+
+                });
+
+            }
+
+            $(document).on(eventName, el, fun);
+
+        }());
+
+
+
+    </script>
+</body>
+
+</html>

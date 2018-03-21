@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>订单信息</title>
+    <link rel="stylesheet" href="__VENDOR__/bootstrap/css/bootstrap.min.css">
+    <include file="App/Admin/View/component/importComponent.html" />
+
+    <style>
+        body {
+            /* background-color: rgb(38, 38, 38); */
+            padding-top: 30px;
+            /* padding: 30px 50px; */
+        }
+
+        pre {
+            color: #ccc;
+            border: solid 3px #ccc;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .table {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+        }
+
+        .table tr td,
+        .table tr th {
+            vertical-align: middle;
+        }
+
+        .table tr td .vertical-top {
+            vertical-align: top;
+        }
+
+        .progress-bar {
+            transition: all 0.3s;
+        }
+
+        #table {
+            position: relative;
+        }
+
+        .arr-item {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .hover-img {
+            max-width: 500px;
+            border-radius: 5px;
+        }
+
+        [data-mtpis] {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        [data-mtpis]:hover {
+            background-color: #ffc107;
+        }
+
+        .goods-img {
+            max-width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div class="container">
+
+        <if condition='$order.state == 5'>
+
+            <h3>
+                <span class="label label-primary">{$order.sc_type}</span>
+                <span class="label label-info">{$order.sc_info}</span>
+            </h3>
+            <br> 售后已处理
+            <span class="glyphicon glyphicon-ok"></span>
+            <br>
+            <hr>
+        </if>
+
+
+        <if condition='$order.state == 4'>
+
+            <h3>
+                <span class="label label-primary">{$order.sc_type}</span>
+                <span class="label label-info">{$order.sc_info}</span>
+            </h3>
+            <br>
+            <h4>
+                <a class="btn btn-info" href="__CONTROLLER__/sh_ok/order_id/{$order.order_id}" role="button">确认处理</a>
+            </h4>
+            <hr>
+
+        </if>
+
+
+        <div class="table-responsive" id="table">
+
+            <table id="" class="table table-bordered table-striped table-hover table-darsk table-sms">
+
+                <thead class="thead">
+                    <tr>
+                        <th>订单号</th>
+                        <th>用户</th>
+                        <th>收货人</th>
+                        <th>电话</th>
+                        <th>地址</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{$order.order_id}</td>
+                        <td>{$order.user_name}</td>
+                        <td>{$order.people}</td>
+                        <td>{$order.phone}</td>
+                        <td>{$order.location}</td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <table id="" class="table table-bordered table-striped table-hover table-dasrk table-sms">
+
+                <thead class="thead">
+                    <tr>
+                        <!-- <th v-for='(item,index) in th'>{{index}}:{{item}}</th> -->
+                        <th>商品图片</th>
+                        <th>商品id</th>
+                        <th>商品标题</th>
+                        <th>货号</th>
+                        <th>规格</th>
+                        <th>商品详情</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <volist name='orderInfo' id='vol' empty='没有订单数据！'>
+                        <tr>
+                            <td data-mtpis='<img class="hover-img" src="__ROOT__{$vol.head_img}" />'>
+                                <a href="__ROOT__{$vol.head_img}" target="_black">
+                                    <img class="goods-img" src="__ROOT__{$vol.head_img}" />
+                                </a>
+                            </td>
+                            <td>{$vol.goods_id}</td>
+                            <td>{$vol.goods_title}</td>
+                            <td>{$vol.goods_no}</td>
+                            <td>{$vol.t1_info}</td>
+
+
+                            <td>
+                                <a href="__MODULE__/goods/edit/goods_id/{$vol.goods_id}" target="_black">点击查看</a>
+                            </td>
+
+                        </tr>
+                    </volist>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+
+    <script rel="stylesheet" href="__VENDOR__/bootstrap/js/bootstrap.min.js"></script>
+
+
+    <script>
+
+
+    </script>
+
+</body>
+
+</html>

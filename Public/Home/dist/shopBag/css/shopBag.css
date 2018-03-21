@@ -1,0 +1,71 @@
+.bag-panel {}
+
+.goods-title {
+    position: absolute;
+}
+
+.bag-panel .good-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.bag-tool {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding-left: 50px;
+}
+
+.bag-tool-right {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    padding-left: 50px;
+    text-align: right;
+}
+
+.list-isall {
+    position: absolute;
+    width: 100%;
+    text-align: right;
+}
+
+.bag-bottom {
+    position: fixed;
+    bottom: 50px;
+    background-color: #fff;
+    border-top: solid 1px #ddd;
+    width: 100%;
+    vertical-align: middle;
+    padding: 0;
+}
+
+.bag-bottom .bag-bottom-left {
+    float: left;
+    left: 0;
+    width: 70%;
+    height: 100%;
+    vertical-align: middle;
+    padding: 15px 0;
+    padding-left: 10px;
+}
+
+.money {
+    padding-left: 30px;
+    color: #f00;
+}
+
+.bag-bottom .bag-bottom-right {
+    position: absolute;
+    top: 0;
+    float: right;
+    right: 0;
+    width: 30%;
+    height: 100%;
+    background-color: #000;
+    vertical-align: middle;
+    padding: 15px 0;
+    text-align: center;
+    color: #ffffff;
+}

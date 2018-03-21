@@ -1,0 +1,22 @@
+.mui-table-view-cell {
+	list-style: none;
+}
+
+.mui-badge-danger,
+.mui-badge-red {
+	color: #C4C4C4;
+	background-color: #fff;
+}
+
+.add-save {
+	line-height: 44px;
+}
+
+#header .a-font-white {
+	color: #fffff;
+}
+
+#detailed {
+	margin: 10px 5px;
+	height: 100px;
+}

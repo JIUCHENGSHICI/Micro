@@ -1,0 +1,34 @@
+/*改变amazeui的样式*/
+body{
+	background-color: #FFFFFF;
+}
+/*改变选项卡下边的三角形*/
+.am-tabs-d2 .am-tabs-nav > .am-active:after {
+    content: none;
+}
+/*改变选项卡的默认的字体的颜色*/
+.am-tabs-d2 .am-tabs-nav a {
+    color: #ADADAD;
+    font-size: 13px;
+}
+/*改变选中后的字体颜色*/
+.am-tabs-d2 .am-tabs-nav > .am-active a {
+    color: #000000;
+}
+/*改变选中后的li的底边的颜色*/
+.am-tabs-d2 .am-tabs-nav > .am-active {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #000000;
+}
+/*改变ul的背景颜色*/
+.am-tabs-d2 .am-tabs-nav {
+    background-color: #FFFFFF;
+}
+/*去掉margin*/
+[data-am-widget='tabs'] {
+    margin: 0px;
+}
+/*去掉下边的边框*/
+.am-tabs-bd {
+    border: none;
+}

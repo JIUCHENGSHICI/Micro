@@ -1,0 +1,72 @@
+$padding-10-0: 10px 0;
+.order-group {
+    /*列表组*/
+    display: block;
+    width: 100%;
+    background-color: #fff;
+    height: 100px;
+    .order-head {
+        /*订单列表头*/
+        width: 100%;
+        background-color: #fff;
+        border-bottom: solid 1px #ddd;
+        .input {
+            display: inline-block;
+            width: 30px;
+            border-right: solid 1px #ddd;
+            text-align: center;
+            padding: $padding-10-0;
+        }
+        .title {
+            padding: $padding-10-0;
+            display: inline-block;
+        }
+    }
+    .order-list {
+        /*订单列表*/
+        .order-item {
+            /*订单列表项*/
+            position: relative;
+            background-color: #fff;
+            padding: 10px; // text-overflow: ellipsis;
+            // white-space: nowrap;
+            border-bottom: solid 1px #ddd;
+            .head-img {
+                display: inline-block;
+                width: 80px;
+                height: 80px;
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                    border-radius: 50%;
+                }
+            }
+            .info {
+                position: absolute;
+                top: 10px;
+                bottom: 10px;
+                display: inline-block;
+                padding: 0 10px;
+                .title {
+                    float: left;
+                    font-size: 13px;
+                }
+                .info-footer {
+                    position: absolute;
+                    right: 10px;
+                    left: 10px;
+                    bottom: 0;
+                    .money {
+                        float: left;
+                    }
+                    .num {
+                        float: right;
+                    }
+                }
+            }
+        }
+    }
+    .order-footer {
+        /*订单列表页脚*/
+    }
+}

@@ -1,0 +1,9 @@
+/*改变的header的行高*/
+.top-banner{
+	line-height: 43px;
+}
+/*把框架里边的input改变成内联块级元素*/
+.top-input{
+	display: inline-block;
+	text-align: center;
+}

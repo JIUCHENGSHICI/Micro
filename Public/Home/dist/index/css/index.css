@@ -1,0 +1,252 @@
+.a-k {
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    overflow: hidden;
+}
+
+.lb-container {
+    width: 100%;
+    height: 50%;
+}
+
+.lb-swiper-slide img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    box-sizing: border-box;
+    border: 0;
+}
+
+
+/*这四个是改变框架中的轮播图下边的小圆点的样式,包括位置和hover的颜色还有active的颜色*/
+
+.am-slider-default .am-control-nav {
+    width: 100%;
+    position: absolute;
+    bottom: 16px;
+    text-align: center;
+}
+
+.am-slider-default .am-control-nav li a {
+    width: 8px;
+    height: 8px;
+    display: block;
+    background-color: white;
+    line-height: 0;
+    font-size: 0;
+    cursor: pointer;
+    text-indent: -9999px;
+    border-radius: 20px;
+    -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+}
+
+.am-slider-default .am-control-nav li a:hover {
+    background: white;
+}
+
+.am-slider-default .am-control-nav li a.am-active {
+    background-color: black;
+    cursor: default;
+}
+
+
+/*改变轮播图中的左右控制*/
+
+.am-slider-default .am-direction-nav a:before {
+    content: none;
+}
+
+.am-slider-default .am-direction-nav a.am-next:before {
+    content: none;
+}
+
+
+/*滑动的导航栏的开始*/
+
+#topNav {
+    width: 100%;
+    overflow: hidden;
+    /*font: 16px/32px hiragino sans gb, microsoft yahei, simsun;*/
+    /*border-bottom: 1px solid #f8f8f8;*/
+}
+
+#topNav .swiper-slide {
+    padding: 2px 5px;
+    letter-spacing: 2px;
+    width: 8rem;
+    text-align: center;
+    font-size: 14px;
+    line-height: 25px;
+}
+
+#topNav .swiper-slide span {
+    transition: all .3s ease;
+    display: block;
+}
+
+#topNav .active {
+    transform: scale(1.1);
+    color: #FF2D2D;
+    opacity: 1;
+    background: #000000;
+    color: #fff;
+}
+
+.gallery-thumbs .swiper-slide {
+    /*width: 25%;*/
+    /*display: inline-block;*/
+    /*opacity: 0.4;*/
+    text-align: center;
+    padding: 5px 0px;
+    color: #777777;
+}
+
+.gallery-thumbs .swiper-slide-active {}
+
+.gallery-top {
+    /*overflow-y: auto;*/
+    position: relative;
+    height: 100%;
+    /*top: 57px;
+left: 0px;
+bottom: 0px;
+right: 0px;*/
+}
+
+.gallery-top .swiper-slide {
+    overflow-y: auto;
+    /**/
+}
+
+
+/*滑动的导航栏的结束*/
+
+
+/*改动滑块的上边距和左边距*/
+
+.swiper-container.gallery-thumbs {
+    /*margin: 5px;*/
+    padding: 5px;
+}
+
+
+/*改amazeui的外边距*/
+
+.am-slider-default {
+    margin: 0;
+    background-color: #fff;
+    border-radius: 2px;
+    -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.15);
+}
+
+
+/*更改bootstrap的padding*/
+
+.container-fluid {
+    padding: 0;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+
+/*用的swiper的轮播改样式*/
+
+.swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    display: inline-block;
+    border-radius: 100%;
+    background: #FFFFFF;
+}
+
+.swiper-pagination-bullet-active {
+    background: #000000;
+}
+
+
+/*顶部的中间字体的样式*/
+
+.am-header-default .am-header-title a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.am-header.am-header-default.a-black a {
+    text-decoration: none;
+}
+
+
+/*自己的样式*/
+
+.index-title {
+    width: 100%;
+    height: 50px;
+    /*background: #C4C4C4;*/
+    text-align: center;
+    line-height: 50px;
+}
+
+
+/*定义轮播图里边的样式*/
+
+.swiper-containerl img {
+    width: 100%;
+}
+
+
+/*这个是轮播图里边下边的圆点*/
+
+.swiper-paginationl {
+    text-align: center;
+    position: relative;
+    bottom: 60px;
+    z-index: 999;
+}
+
+.swiper-containerl {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+
+/*更改框架里边的小圆点的样式*/
+
+.swiper-container-horizontal>.swiper-pagination-bullets,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    height: 0;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    font-size: 0;
+}
+
+.img-box {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
+}
+
+
+/*更改顶部左右滑动选项卡的左侧边距*/
+
+.swiper-container-free-mode>.swiper-wrapper {
+    margin: 0 5px;
+}
+
+
+/*改变因框架带来的内边距的影响*/
+
+.a-container {
+    padding: 5px 15px;
+}

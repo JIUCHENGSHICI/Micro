@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<title>新地址</title>
+	<link rel="stylesheet" type="text/css" href="__VENDOR__/mui/css/mui.min.css" />
+	<link rel="stylesheet" type="text/css" href="__HDIST__/source/font/iconfont.css" />
+	<link rel="stylesheet" type="text/css" href="__VENDOR__/amazeui/css/amazeui.css" />
+
+	<link rel="stylesheet" type="text/css" href="__VENDOR__/jquery/jquery-weui.min.css" />
+	<link rel="stylesheet" type="text/css" href="__HDIST__/a/a.css" />
+	<link rel="stylesheet" type="text/css" href="__HDIST__/addAddress/css/addAddress.css" />
+	<style>
+		#header {
+			background-color: #000000;
+			color: #ffffff;
+		}
+
+		#header * {
+			background-color: #000000;
+			border: none;
+			color: #ffffff;
+
+		}
+
+		.a-font-white.add-save {
+			line-height: 2;
+		}
+	</style>
+</head>
+
+<body>
+
+	<form action="" method="post">
+
+
+		<div class="mui-collapse-content">
+			<div class="mui-input-group">
+				<div class="mui-input-row">
+					<label>收货人</label>
+					<input type="text" class="mui-input-clear" name="people">
+				</div>
+				<div class="mui-input-row">
+					<label>联系电话</label>
+					<input type="text" class="mui-input-clear" name="phone">
+				</div>
+				<div class="mui-input-row">
+					<label>所在地区</label>
+					<input type="text" class="address" id="cityPicker" name="location[l1]" placeholder="请选择省市区县" style="font-size:10px;">
+				</div>
+				<div class="mui-input-row">
+					<label>街道</label>
+					<input type="text" class="mui-input-clear" name="location[l2]">
+				</div>
+				<div class="mui-input-row" id="detailed">
+					<textarea id="info" rows="5" placeholder="详细地址" class="address2" name="location[l3]"></textarea>
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<include file="App/Home/View/component/nav.comp.html" />
+
+	<script src="__VENDOR__/jquery/jquery.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__VENDOR__/mui/js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__VENDOR__/mui/js/mui.pullToRefresh.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__VENDOR__/mui/js/mui.pullToRefresh.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__VENDOR__/jquery/jquery-weui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__VENDOR__/jquery/city-picker.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__HDIST__/a/a.js" type="text/javascript" charset="utf-8"></script>
+	<script src="__HDIST__/addAddress/js/addAddress.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$("#cityPicker").cityPicker({
+			title: "选择省市区/县",
+			onChange: function (picker, values, displayValues) {
+				console.log(values, displayValues);
+			}
+		});
+		isNav("#header");
+	</script>
+</body>
+
+</html>

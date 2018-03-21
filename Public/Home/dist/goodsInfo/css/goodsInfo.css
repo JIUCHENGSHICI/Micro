@@ -1,0 +1,35 @@
+body {
+    padding-bottom: 50px;
+}
+
+
+/*底部的样式*/
+
+.info-bottom {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #ffffff;
+}
+
+.info-bottom-3 {
+    text-align: center;
+    height: 45px;
+    line-height: 45px;
+}
+
+.info-bottom-9 {
+    text-align: center;
+    background-color: #000000;
+    color: #FFFFFF;
+    height: 45px;
+    line-height: 45px;
+}
+
+
+/*单独改变购物车图标的颜色*/
+
+.icon-gouwuche {
+    color: gray;
+}

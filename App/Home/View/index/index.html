@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="__VENDOR__/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="__VENDOR__/amazeui/css/amazeui.css" />
+		<link rel="stylesheet" href="__VENDOR__/swiper/4.0.5/swiper.min.css">
+		<link rel="stylesheet" type="text/css" href="__HDIST__/source/font/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="__HDIST__/a/a.css" />
+		<link rel="stylesheet" type="text/css" href="__HDIST__/index/css/index.css" />
+
+	</head>
+
+	<body>
+
+		<!--顶部的导航栏  结束-->
+		<div class="container-fluid a-k">
+			<!--滑动开始-->
+			<div id="topNav" class="swiper-container gallery-thumbs">
+				<div class="swiper-wrapper swiper-bc">
+
+					<volist name="nav" id="vol" empty="暂时没有数据">
+
+						<if condition="$i == 1 ">
+
+							<div class="swiper-slide active" data-index="{$i}">
+								<span>{$vol.nav_title}</span>
+							</div>
+
+							<else/>
+
+							<div class="swiper-slide" data-index="{$i}">
+								<span>{$vol.nav_title}</span>
+							</div>
+
+						</if>
+
+					</volist>
+
+				</div>
+			</div>
+
+			<div class="swiper-container gallery-top">
+				<div class="swiper-wrapper">
+
+					<volist name="nav" id="vol" empty="暂时没有数据">
+
+						<!-- 这里是首页 -->
+
+						<div class="swiper-slide">
+
+							<!--轮播图开始-->
+							<notempty name="vol.carousel">
+
+								<div class="swiper-containerl swiper-container-horizontal" id="swiper-container1">
+									<div class="swiper-wrapper" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
+
+										<volist name="vol.carousel" id="vo" empty="暂时没有数据">
+											<div class="swiper-slide">
+												<div class="img-box" style="background-image: url(__ROOT__{$vo.carousel_url})"></div>
+											</div>
+										</volist>
+									</div>
+									<div class="swiper-paginationl swiper-pagination-clickable swiper-pagination-bullets">
+
+										<volist name="vol.carousel" id="vo" empty="暂时没有数据">
+											<span class="swiper-pagination-bullet "></span>
+										</volist>
+									</div>
+								</div>
+
+							</notempty>
+							<!--轮播图结束-->
+
+							<div class="">
+								<div class="p-b-100 pbl">
+									<volist name="vol.goods" id="vo" empty="没有商品">
+										<div class="goods-list-box">
+											<a href="__MODULE__/goodsInfo/goodsInfo/goods_id/{$vo.goods_id}">
+												<div class="goods-list">
+													<div class="goods-img am-text-middle">
+														<img src="__ROOT__{$vo.head_img}" class="am-text-middle" alt="图片错误！">
+													</div>
+													<div class="goods-info">
+														<div>{$vo.goods_title}</div>
+														<div>{$vo.money}￥</div>
+													</div>
+												</div>
+											</a>
+										</div>
+									</volist>
+								</div>
+							</div>
+						</div>
+					</volist>
+				</div>
+			</div>
+		</div>
+		<!--底部的导航栏 开始-->
+
+		<include file="App/Home/View/component/nav.comp.html" />
+
+		<!--底部的导航栏 开始-->
+		<script src="__VENDOR__/jquery/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__VENDOR__/swiper/3.4.2/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+
+		<script>
+			var mySwiper = new Swiper('.swiper-containerl', {
+				pagination: '.swiper-paginationl',
+				paginationClickable: true,
+			})
+		</script>
+
+		<script src="__VENDOR__/amazeui/js/amazeui.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__HDIST__/index/js/index.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__HDIST__/a/a.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			// gotop2(".gallery-top .swiper-slide");
+
+			login();
+
+			function login() {
+				//微信登录
+				w(1);
+
+			}
+
+			var swiperH = new Swiper('.swiper-container-h', {
+				spaceBetween: 50,
+				pagination: {
+					el: '.swiper-pagination-h',
+					clickable: true,
+				},
+			});
+
+			var swiperV = new Swiper('.swiper-container-v', {
+				direction: 'vertical',
+				spaceBetween: 50,
+				pagination: {
+					el: '.swiper-pagination-v',
+					clickable: true,
+				},
+			});
+
+			//          轮播图样式
+		</script>
+	</body>
+
+</html>

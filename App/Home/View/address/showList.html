@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="__VENDOR__/amazeui/css/amazeui.css" />
+    <link rel="stylesheet" type="text/css" href="__HDIST__/a/a.css" />
+    <link rel="stylesheet" type="text/css" href="__HDIST__/source/font/iconfont.css" />
+
+
+    <title>收货地址管理</title>
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: #ffffff;
+            padding-bottom: 50px;
+        }
+
+        .list-box {
+            padding: 10px;
+        }
+
+        .list-item {
+            padding: 10px 5px;
+            border-bottom: solid 1px #ddd;
+            font-size: 14px;
+        }
+
+        .info {
+            color: #999;
+            font-size: 13px;
+            padding: 5px 0;
+        }
+
+        .default {
+            color: #f00;
+        }
+
+        a {
+            text-decoration: none;
+            color: #777777;
+        }
+
+        a:focus,
+        a:hover {
+            color: #777;
+            text-decoration: none;
+
+        }
+
+        .tool {
+            text-align: right;
+        }
+
+        .tool-btn {
+            display: inline-block;
+            border: solid 1px #777;
+            color: #777777;
+            border-radius: 5px;
+            padding: 3px;
+            text-align: center;
+            margin: 0 5px;
+        }
+
+        .tool-right {
+            float: right;
+        }
+
+        .tool-btn-no {
+            border: none;
+        }
+
+        .tool-btn-block {
+            display: block;
+        }
+
+        .text-red {
+            color: #ff0000;
+        }
+
+        .my-btn {
+            margin: 10px;
+            margin-bottom: 10px;
+        }
+
+        hr {
+            margin: 0 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a class="tool-btn tool-btn-block my-btn" href="__CONTROLLER__/add">新增收货地址</a>
+    <hr>
+    <div class="list-box">
+
+        <volist name='address' id='vol' empty='没有地址！'>
+
+            <div class="list-item">
+                <div class="list-body">
+                    <div class="title">
+                        {$vol.people}，{$vol.phone}
+                    </div>
+                    <div class="info">
+                        {$vol.location}
+                    </div>
+                    <div class="tool">
+
+                        <if condition="$vol.is_default == 1">
+                            <div class="tool-btn tool-btn-no set-default text-red">
+                                默认地址
+                            </div>
+                            <else/>
+                            <div class="tool-btn set-default">
+                                <a href="__CONTROLLER__/setDefault/address_id/{$vol.address_id}">设为默认</a>
+                            </div>
+                        </if>
+
+                        <div class="tool-btn set-default tool-remove">
+                            <a href="__CONTROLLER__/del/address_id/{$vol.address_id}">删除</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </volist>
+
+
+
+
+    </div>
+
+
+    <include file="App/Home/View/component/nav.comp.html" />
+
+
+
+
+
+
+</body>
+
+</html>

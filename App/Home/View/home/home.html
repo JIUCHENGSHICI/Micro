@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<title>Swiper demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		<!-- Link Swiper's CSS -->
+		<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/css/swiper.css">-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/css/swiper.min.css">
+		<link rel="stylesheet" href="../../dist/home/css/home.css" />
+		<!-- Demo styles -->
+		<style>
+			#topNav {
+				width: 100%;
+				overflow: hidden;
+				font: 16px/32px hiragino sans gb, microsoft yahei, simsun;
+				border-bottom: 1px solid #f8f8f8;
+			}
+			
+			#topNav .swiper-slide {
+				padding: 0 5px;
+				letter-spacing: 2px;
+				width: 3rem;
+				text-align: center;
+			}
+			
+			#topNav .swiper-slide span {
+				transition: all .3s ease;
+				display: block;
+			}
+			
+			#topNav .active {
+				transform: scale(1.1);
+				color: #FF2D2D;
+				opacity: 1;
+				background: #000000;
+				color: #fff;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="topNav" class="swiper-container gallery-thumbs">
+			<div class="swiper-wrapper swiper-bc">
+				<div class="swiper-slide active" data-index="1">
+					<span>首页1</span>
+				</div>
+				<div class="swiper-slide" data-index="2">
+					<span>首页2</span>
+				</div>
+				<div class="swiper-slide" data-index="3">
+					<span>首页3</span>
+				</div>
+				<div class="swiper-slide" data-index="4">
+					<span>首页4</span>
+				</div>
+				<div class="swiper-slide" data-index="5">
+					<span>首页5</span>
+				</div>
+
+				<div class="swiper-slide" data-index="6">
+					<span>首页6</span>
+				</div>
+
+				<div class="swiper-slide" data-index="7">
+					<span>首页57</span>
+				</div>
+
+				<div class="swiper-slide" data-index="8">
+					<span>首页58</span>
+				</div>
+
+				<div class="swiper-slide" data-index="9">
+					<span>首页59</span>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="swiper-container gallery-top">
+			<div class="swiper-wrapper">
+
+				<div class="swiper-slide">
+					<span>hello word</span>
+					<h1>11111111111111</h1>
+				</div>
+
+				<div class="swiper-slide">
+					<span>hello word</span>
+					<h1>22222222222222</h1>
+				</div>
+
+				<div class="swiper-slide">
+					<span>hello word</span>
+					<h1>33333333333333</h1>
+				</div>
+
+				<div class="swiper-slide">
+					<span>hello word</span>
+					<h1>44444444444444</h1>
+				</div>
+
+				<div class="swiper-slide">
+					<span>hello word</span>
+					<h1>555555555555ss</h1>
+				</div>
+				<div class="swiper-slide">
+					<span>hello word</span>
+					<h1>666666666666</h1>
+				</div>
+				<div class="swiper-slide">
+					<span>hello word</span>
+					<h1>77777777777</h1>
+				</div>
+				<div class="swiper-slide">
+					<span>hello word</span>
+					<h1>8888888888888888</h1>
+				</div>
+				<div class="swiper-slide">
+					<span>hello word</span>
+					<h1>99999999999</h1>
+				</div>
+
+			</div>
+		</div>
+
+
+		<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.js"></script>-->
+		<!--<script src="../../vendor/jquery/jquery-2.1.0.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="../../vendor/jquery/jquery-1.10.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.min.js"></script>-->
+		<script src="../../vendor/swiper/3.4.2/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../dist/home/js/home.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../dist/a/a.js" type="text/javascript" charset="utf-8"></script>
+		<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.esm.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.5/js/swiper.esm.bundle.js"></script>-->
+		<!-- Initialize Swiper -->
+		<script>
+			var galleryTop = new Swiper('.gallery-top', {
+				spaceBetween: 10,
+				onTransitionStart: function(swiper) {
+					var id = swiper.activeIndex;
+					console.log(id)
+					$("#topNav  .active").removeClass('active');
+					$("[data-index='" + (id + 1) + "']").addClass("active");
+					mySwiper.slideTo(id-1, 500);
+
+				}
+
+			});
+			//			var galleryThumbs = new Swiper('.gallery-thumbs', {
+			//				spaceBetween: 10,
+			//				centeredSlides: true,
+			//				slidesPerView: 'auto',
+			//				touchRatio: 0.2,
+			//				slideToClickedSlide: true,
+			//				//				====
+			////				slidesPerView: 4,
+			////				spaceBetween: 30,
+			////				direction: 'horizontal',
+			////				grabCursor: true,
+			////				width: 70,
+			////				spaceBetween: 10,
+			//
+			//			});
+			//			
+			var mySwiper = new Swiper('#topNav', {
+				freeMode: true,
+				freeModeMomentumRatio: 0.5,
+				slidesPerView: 'auto',
+				//==================
+				//				spaceBetween: 10,
+//								centeredSlides: true,
+				//				slidesPerView: 'auto',
+				//				touchRatio: 0.2,
+				//				slideToClickedSlide: true,
+				//				====
+				//				slidesPerView: 4,
+				//				spaceBetween: 30,
+				//				direction: 'horizontal',
+//								grabCursor: true,
+//								width: 70,
+//								spaceBetween: 10,
+
+			});
+			var swiperWidth = mySwiper.container[0].clientWidth;
+			var maxTranslate = mySwiper.maxTranslate();
+			var maxWidth = -maxTranslate + swiperWidth / 2;
+
+			$(".swiper-container").on('touchstart', function(e) {
+				//				e.preventDefault()
+			})
+			$("#topNav .swiper-slide").on('click touchstart', function(e) {
+				//				e.preventDefault();
+				var id = $(this).attr("data-index");
+				galleryTop.slideTo(id - 1, 0);
+			});
+			mySwiper.on('tap', function(swiper, e) {
+
+				//				e.preventDefault();
+
+				slide = swiper.slides[swiper.clickedIndex]
+				slideLeft = slide.offsetLeft
+				slideWidth = slide.clientWidth
+				slideCenter = slideLeft + slideWidth / 2
+				// 被点击slide的中心点
+
+				mySwiper.setWrapperTransition(300)
+
+				if(slideCenter < swiperWidth / 2) {
+
+					mySwiper.setWrapperTranslate(0)
+
+				} else if(slideCenter > maxWidth) {
+
+					mySwiper.setWrapperTranslate(maxTranslate)
+
+				} else {
+
+					nowTlanslate = slideCenter - swiperWidth / 2
+
+					mySwiper.setWrapperTranslate(-nowTlanslate)
+
+				}
+
+				$("#topNav  .active").removeClass('active')
+
+				$("#topNav .swiper-slide").eq(swiper.clickedIndex).addClass('active')
+
+			})
+			//			galleryTop.params.control = mySwiper;
+			//			mySwiper.params.control = galleryTop;
+		</script>
+	</body>
+
+</html>

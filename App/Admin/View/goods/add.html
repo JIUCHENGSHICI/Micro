@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>新增商品</title>
+    <include file="App/Admin/View/component/importComponent.html" />
+    <link rel="stylesheet" type="text/css" href="__VENDOR__/umeditor/themes/default/css/umeditor.css" />
+    <style>
+        body {
+            padding: 15px
+        }
+
+        .goods-img {
+            max-width: 300px;
+            border-radius: 5px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>新增商品</legend>
+    </fieldset>
+
+    <form class="layui-form" action="__MODULE__/Use/add" method="post">
+
+        <div class="layui-form-item">
+            <div class="layui-block">
+                <label class="layui-form-label">标题</label>
+                <div class="layui-input-inline" style="width: 500px;">
+                    <input type="text" name="goods_title" placeholder="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+
+        <div class="layui-form-item">
+            <div class="layui-block">
+                <label class="layui-form-label">价格</label>
+                <div class="layui-input-inline">
+                    <input type="number" name="money" placeholder="￥" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+
+        <div class="layui-form-item">
+            <div class="layui-block">
+                <label class="layui-form-label">货号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="goods_no" placeholder="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+
+        <div class="layui-form-item">
+            <div class="layui-block">
+                <label class="layui-form-label">商品头像</label>
+                <div class="layui-input-block">
+                    <div id="headImgApp">
+                        <img :src="img" class="goods-img">
+                        <input type="hidden" v-model='src' name="head_img">
+                        <p>
+
+                            <button type='button' class="layui-btn  layui-btn-danger" v-if='remove'>
+                                <i class="layui-icon">&#x1006;</i> 删除
+                            </button>
+                            <button type='button' class="layui-btn" id="up_head_img">
+                                <i class="layui-icon">&#xe67c;</i>{{title}}
+                            </button>
+
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  -->
+        <div class="layui-form-item">
+            <div class="layui-block">
+                <label class="layui-form-label">详情页顶部大图</label>
+                <div class="layui-input-block">
+
+                    <div id="infoHeadImgApp">
+                        <img :src="img" class="goods-img">
+                        <input type="hidden" v-model='src' name="info_head_img">
+
+
+                        <p>
+
+                            <button type='button' class="layui-btn  layui-btn-danger" v-if='remove'>
+                                <i class="layui-icon">&#x1006;</i> 删除
+                            </button>
+                            <button type='button' class="layui-btn" id="up_info_head_img">
+                                <i class="layui-icon">&#xe67c;</i>{{title}}
+                            </button>
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+        <!--  -->
+
+        <div class="layui-form-item">
+            <div class="layui-block">
+                <label class="layui-form-label">选择品牌</label>
+                <div class="layui-input-inline">
+                    <select name="brand_id" lay-verify="required" lay-filter="se_brand" lay-search id="se_brand">
+                        <option value="">商品品牌</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+        <!--  -->
+        <div class="layui-form-item">
+            <div class="layui-block">
+                <label class="layui-form-label">颜色</label>
+                <div class="layui-input-block" id="colorApp">
+                    <input type="hidden" name="color" v-model='msg'>
+
+                    <div class="layui-btn-group" v-for='(item,index) in items'>
+                        <button type='button' class="layui-btn layui-btn-primary layui-btn-sm">{{item}}</button>
+                        <button type='button' @click='del(index,item)' class="layui-btn layui-btn-primary remove-item layui-btn-sm">
+                            <i class="layui-icon">&#x1006;</i>
+                        </button>
+                    </div>
+
+                    <button type='button' @click='add()' class="layui-btn layui-btn-primary add-item layui-btn-sm">
+                        <i class="layui-icon">&#xe654;</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+        <div class="layui-form-item">
+            <div class="layui-block">
+                <label class="layui-form-label">大小</label>
+                <div class="layui-input-block" id="sizeApp">
+
+                    <input type="hidden" name="size" v-model='msg'>
+                    <div class="layui-btn-group" v-for='(item,index) in items'>
+                        <button type='button' class="layui-btn layui-btn-primary layui-btn-sm">{{item}}</button>
+                        <button type='button' @click='del(index,item)' class="layui-btn layui-btn-primary remove-item layui-btn-sm">
+                            <i class="layui-icon">&#x1006;</i>
+                        </button>
+                    </div>
+                    <button type='button' @click='add()' class="layui-btn layui-btn-primary add-item layui-btn-sm">
+                        <i class="layui-icon">&#xe654;</i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!--  -->
+        <div class="layui-form-item">
+            <div class="layui-block">
+                <label class="layui-form-label">尺码</label>
+                <div class="layui-input-block" id="size2App">
+                    <input type="hidden" name="size2" v-model='msg'>
+                    <div class="layui-btn-group" v-for='(item,index) in items'>
+                        <button type='button' class="layui-btn layui-btn-primary layui-btn-sm">{{item}}</button>
+                        <button type='button' @click='del(index,item)' class="layui-btn layui-btn-primary remove-item layui-btn-sm">
+                            <i class="layui-icon">&#x1006;</i>
+                        </button>
+                    </div>
+
+                    <button type='button' @click='add()' class="layui-btn layui-btn-primary add-item layui-btn-sm">
+                        <i class="layui-icon">&#xe654;</i>
+                    </button>
+
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择分类</label>
+            <div class="layui-input-inline">
+                <select name="class_id_1" lay-verify="required" lay-filter="se_class_1" lay-search id="se_class_1">
+                    <option value="">一级分类</option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="class_id_2" lay-verify="required" lay-filter="se_class_2" id="se_class_2">
+                    <option value="">二级分类</option>
+                </select>
+            </div>
+        </div>
+        <!--  -->
+        <div class="layui-form-item">
+            <div class="layui-input-block save-tool">
+                <button class="layui-btn" lay-submit lay-filter="*">添加</button>
+            </div>
+        </div>
+
+        <!--  -->
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">详情</label>
+            <div class="layui-input-block">
+                <div class="layui-col-md12" style="z-index: 1;max-width:90%">
+                    <script id="container" name="info" style="width: 100%;" type="text/plain" lay-verify='required'></script>
+                </div>
+            </div>
+        </div>
+
+        <!--  -->
+
+
+
+
+    </form>
+
+    <!-- 引入 etpl -->
+    <script src="__VENDOR__/umeditor/third-party/template.min.js" type="text/javascript" charset="utf-8"></script>
+    <!-- 配置文件 -->
+    <script src="__VENDOR__/umeditor/umeditor.config.js" type="text/javascript" charset="utf-8"></script>
+    <!-- 编辑器源码文件 -->
+    <script src="__VENDOR__/umeditor/umeditor.js" type="text/javascript" charset="utf-8"></script>
+    <!-- 语言包文件 -->
+    <script src="__VENDOR__/umeditor/lang/zh-cn/zh-cn.js" type="text/javascript" charset="utf-8"></script>
+
+    <!--  -->
+    <script src="__DIST__/linkage/linkage.js" type="text/javascript" charset="utf-8"></script>
+    <!---->
+    <script>
+
+
+
+        var headImgApp = new Vue({
+            el: '#headImgApp',
+            data: {
+                img: '',
+                src: '',
+                // img: '/wShop/Public/Upload//goods/2017-12-04/5a24e3548531c.jpg',
+                remove: false,
+                title: '上传图片'
+            }
+        });
+
+        var infoHeadImgApp = new Vue({
+            el: '#infoHeadImgApp',
+            data: {
+                img: '',
+                src: '',
+                // img: '/wShop/Public/Upload//goods/2017-12-04/5a24e3548531c.jpg',
+                remove: false,
+                title: '上传图片'
+            }
+        });
+
+        var colorApp = new Vue({
+            el: '#colorApp',
+            data: {
+                items: [],
+                msg: '',
+                count: 0
+            },
+            methods: {
+                add: function () {
+                    appAdd(this, '新增颜色');
+                },
+                del: function (index, item) {
+                    appDel(this, index, item);
+                }
+            }
+        });
+        var sizeApp = new Vue({
+            el: '#sizeApp',
+            data: {
+                items: [],
+                msg: ''
+            },
+            methods: {
+                add: function () {
+                    appAdd(this, '新增大小');
+                },
+                del: function (index, item) {
+                    appDel(this, index, item);
+                }
+            }
+        });
+        var size2App = new Vue({
+            el: '#size2App',
+            data: {
+                items: [],
+                msg: ''
+
+            },
+            methods: {
+                add: function () {
+                    appAdd(this, '新增尺码');
+                },
+                del: function (index, item) {
+                    appDel(this, index, item);
+                }
+            }
+        });
+
+        function appAdd(app, title) {
+
+            layer.prompt({
+                title: title
+            }, function (value, index, elem) {
+                $(elem).val('');
+                $(elem).focus();
+                app.items.push(value);
+                appUpdate(app);
+                // layer.close(index);
+            });
+
+        }
+        function appDel(app, index, item) {
+            app.items.splice(index, 1);
+            appUpdate(app);
+        }
+        function appUpdate(app) {
+            app.msg = '';
+            for (var i = 0; i < app.items.length; i++) {
+                var item = app.items[i];
+                app.msg += item + (i == app.items.length - 1 ? '' : '|');
+            }
+        }
+
+
+
+        window.um = UM.getEditor('container', {
+            /* 传入配置参数,可配参数列表看umeditor.config.js */
+        });
+        layui.use(['form', 'laydate', 'upload'], function () {
+            var form = layui.form;
+            var laydate = layui.laydate;
+            var upload = layui.upload;
+
+            //执行实例
+            var uploadInst1 = upload.render({
+                elem: '#up_head_img' //绑定元素
+                , url: '__MODULE__/Use/upFile' //上传接口
+                , data: {
+                    'src': 'goods/'
+                }
+                , done: function (res) {
+                    //上传完毕回调
+                    console.warn('输出测试…………');
+                    console.warn(res);
+                    console.warn('输出测试…………end');
+
+
+
+                    headImgApp.img = '__ROOT__' + res.data.src;
+                    headImgApp.src = res.data.src;
+                    // headImgApp.remove = true;
+                    headImgApp.title = '重新上传';
+                }
+                , error: function (e) {
+                    //请求异常回调
+                    console.log(e);
+
+                }
+            });
+
+
+            //执行实例
+            var uploadInst2 = upload.render({
+                elem: '#up_info_head_img' //绑定元素
+                , url: '__MODULE__/Use/upFile' //上传接口
+                , data: {
+                    'src': 'goods/'
+                }
+                , done: function (res) {
+                    //上传完毕回调
+                    console.warn('输出测试…………');
+                    console.warn(res);
+                    console.warn('输出测试…………end');
+                    infoHeadImgApp.img = '__ROOT__' + res.data.src;
+                    infoHeadImgApp.src = res.data.src;
+                    // infoHeadImgApp.remove = true;
+                    infoHeadImgApp.title = '重新上传';
+                }
+                , error: function () {
+                    //请求异常回调
+                }
+            });
+
+
+
+
+            url = '__MODULE__/Use/' + 'getList';
+
+            (function () {
+
+                var obj = {
+                    table: ['brand', 'class', 'class as class2'],
+                    where: {
+                        brand: {
+                            // 'brand_id': 'caf6566c20c93ac969e8dcbf2012c5fe'
+                        },
+                        class: {
+                            'level': '1'
+                        },
+                        class2: {
+                            'level': '2'
+                        }
+                    }
+                };
+                var fun = function (res) {
+
+                    try {
+                        res = JSON.parse(res);
+                    } catch (error) {
+                        //转换错误
+                        return
+                    }
+
+                    var arr = [];
+
+                    var count = 0;
+
+                    for (var x in res.msg) {
+                        arr[count] = res.msg[x];
+                        count++;
+                    }
+
+                    linkage(arr, form);
+
+                };
+                $.get(url, obj, fun);
+
+            }());
+
+
+            form.on('submit(*)', function (data) {
+                // console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
+                // console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+                // console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+
+
+                var index = layer.load(2);
+
+                (function () {
+
+                    var url = '__MODULE__/Use/add';
+                    var obj = {
+                        table: 'goods',
+                        add: data.field
+                    };
+
+                    var fun = function (res) {
+
+                        layer.close(index);
+                        try {
+                            res = JSON.parse(res);
+                        } catch (error) {
+                            //转换错误
+                            return
+                        }
+
+                        if (res.res > 0) {
+                            layer.msg('成功~');
+
+                            //询问框
+                            layer.confirm('添加成功~是否刷新页面？', {
+                                btn: ['确定', '取消'] //按钮
+                            }, function () {
+                                window.location = window.location;
+                            });
+
+
+                        } else {
+                            layer.msg('失败！' + res.msg);
+                        }
+
+                    };
+
+                    $.post(url, obj, fun);
+
+                }());
+
+
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>

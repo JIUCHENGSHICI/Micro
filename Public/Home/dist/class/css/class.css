@@ -1,0 +1,196 @@
+/*侧边栏变成块级元素*/
+
+
+/*框架中的样式会冲掉 自己写的 a.css中的样式 所以在这重新加上*/
+
+.a-tabs-nav.a-cf {
+    display: block;
+    width: 25%;
+    float: left;
+}
+
+.a-tabs-bd.a-tabs-bd-ofv {
+    width: 75%;
+    float: right;
+    padding-top: 10px;
+    padding-left: 50px;
+}
+
+
+/*改左边的高度*/
+
+
+/*更改侧边栏的颜色*/
+
+.a-tabs-default .a-tabs-nav a {
+    color: #828282;
+    line-height: 42px;
+}
+
+
+/*更改选中的样式*/
+
+.a-tabs-default .a-tabs-nav>.am-active a {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+
+/*右侧样式更改*/
+
+.a-tabs-bd {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid transparent;
+    border-top: none;
+    z-index: 100;
+    -webkit-transition: height .3s;
+    transition: height .3s;
+    background-color: #FFFFFF;
+}
+
+
+/*更改大的margin*/
+
+[data-a-widget='tabs'] {
+    margin: 0;
+}
+
+[data-am-widget='tabs'] {
+    margin: 0;
+}
+
+
+/*给左边加下边框*/
+
+[data-a-widget='tabs'] .a-tabs-nav li {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    border-bottom: 1px solid #C7C7CC;
+}
+
+
+/*改变左边a标签的样式*/
+
+.a-tabs-default .a-tabs-nav a {
+    color: #828282;
+    line-height: 42px;
+    font-size: 13px;
+    border-bottom: 2px solid transparent;
+    text-decoration: none;
+}
+
+.am-tabs-d2 .am-tabs-nav>.am-active a {
+    line-height: 40px;
+    color: #000000;
+    background-color: #FFFFFF;
+    text-decoration: none;
+}
+
+
+/*下边是加了上边的选项卡之后的样式*/
+
+
+/*去掉小箭頭*/
+
+.am-tabs-d2 .am-tabs-nav>.am-active:after {
+    content: none;
+}
+
+
+/*去掉父级的padding*/
+
+.am-tabs-bd .am-tab-panel {
+    padding: 5px 0px;
+}
+
+
+/*更改顶部的样式*/
+
+.am-tabs-d2 .am-tabs-nav>.am-active {
+    position: relative;
+    background-color: #fcfcfc;
+    border-bottom: 2px solid #9D9D9D;
+}
+
+.a-one-bc {
+    background-color: #FFFFFF;
+}
+
+.am-tabs-d2 .am-tabs-nav>.am-active a {
+    line-height: 40px;
+    color: #000000;
+    background-color: #FFFFFF;
+}
+
+
+/*更改border*/
+
+.am-tabs-bd {
+    position: relative;
+    overflow: hidden;
+    border: none;
+    border-top: none;
+    z-index: 100;
+    -webkit-transition: height .3s;
+    transition: height .3s;
+}
+
+
+/*更改input的背景颜色*/
+
+.mui-bar input[type=search] {
+    height: 29px;
+    margin: 6px 0;
+    background: #FFFFFF;
+}
+
+
+/*让顶部的两个选项卡固定定位之后 下边的那个 商品列表相对于顶部有距离  不会被盖住*/
+
+.a-list li {
+    list-style: none;
+    margin-top: 0px;
+    background-color: #fff;
+    padding: 0 1.5em;
+    padding-right: 1em;
+}
+
+
+/*以上是更改框架中的样式*/
+
+
+/*固定顶部的两个选项卡*/
+
+.class-fixed {
+    position: fixed;
+    z-index: 999;
+}
+
+.am-tabs-bd .class-top {
+    top: 37px;
+}
+
+
+/*更改分类中的字体大小*/
+
+.a-list.list-sm {
+    font-size: 14px;
+}
+
+
+/*改变的header的行高*/
+
+.top-banner {
+    line-height: 47px;
+}
+
+
+/*把框架里边的input改变成内联块级元素*/
+
+.top-input {
+    display: inline-block;
+    text-align: center;
+}

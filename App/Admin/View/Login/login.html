@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>微商城后台登录</title>
+    <link href="__VENDOR__/layui/css/layui.css" rel="stylesheet" type="text/css">
+    <link href="__VENDOR__/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- <link href="__VENDOR__/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"> -->
+
+    <style>
+        body {
+            background-color: #f5f8fa;
+            font-family: '微软雅黑';
+            background-color: rgb(30, 30, 30);
+        }
+
+
+        #admin_code_img {
+            margin: 0;
+            height: 40px;
+            max-width: 100%;
+        }
+
+        #basic-addon2 {
+            padding: 0;
+            width: 150px;
+            background-color: transparent;
+            border: none;
+        }
+
+        .login-panel {
+            position: fixed;
+            width: 350px;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 5px 30px 5px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s;
+        }
+
+
+        .login-head {
+            padding: 13px 0;
+            background-color: #2a2a2a;
+            color: #fff;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .login-body {
+            background-color: #ffffff;
+            padding: 20px;
+        }
+
+        .form-control {
+            border-radius: 2px;
+            box-shadow: none;
+            padding: 10px;
+            height: auto;
+        }
+
+        .form-control:focus {
+            outline: none;
+            box-shadow: none;
+            border-color: #777;
+        }
+
+        .btn-black {
+            border-radius: 2px;
+            background-color: #4a4a4a;
+            outline: none;
+            color: #ffffff;
+            padding: 10px;
+
+        }
+
+        .btn-black:hover,
+        .btn-black:focus {
+            background-color: #4a4a4a;
+            color: #ffffff;
+            outline: none;
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <div class="login-panel">
+        <div class="login-head">
+            <div class="login-title">
+                微商城后台登录
+            </div>
+        </div>
+        <div class="login-body">
+
+            <div class="form text-center layui-form">
+
+                <div class="form-group">
+                    <input type="text" lay-verify='required' placeholder="用户名" class="form-control" name="admin_id" id="admin_user">
+                </div>
+                <div class="form-group">
+                    <input type="password" lay-verify='required' placeholder="密码" class="form-control" name="admin_pwd" id="admin_pwd">
+                </div>
+                <div class="form-group">
+
+                    <div class="input-group" style="width: 100%">
+                        <input type="text" id="admin_code" name="admin_code" lay-verify='required' class="form-control" placeholder="验证码" aria-describedby="basic-addon2">
+                        <span class="input-group-addon" id="basic-addon2">
+                            <img src="" id="admin_code_img">
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <!-- lay-submit -->
+                    <button lay-submit type="button" class="btn  btn-black btn-block" lay-filter="login">登录</button>
+                    <!-- <input type="password" lay-verify='required' placeholder="密码" class="form-control" id="admin_pwd"> -->
+                </div>
+            </div>
+
+        </div>
+        <div class="login-footer">
+
+        </div>
+
+    </div>
+
+
+
+
+    <script src="__VENDOR__/Jquery/jquery.js"></script>
+    <!-- <script src="__VENDOR__/bootstrap/js/bootstrap.min.js"></script> -->
+    <script src="__VENDOR__/layer/layer.js"></script>
+    <script src="__VENDOR__/layui/layui.js"></script>
+    <!-- popper.min.js 用于弹窗、提示、下拉菜单 -->
+    <!-- <script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script> -->
+    <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
+    <!-- <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script> -->
+    <script>
+
+        layui.use('form', function () {
+            var form = layui.form;
+
+            //各种基于事件的操作，下面会有进一步介绍
+            form.on('submit(login)', function (data) {
+                // console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
+                // console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+                // console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+
+                $.post('__CONTROLLER__/login', data.field, function (res) {
+                    res = JSON.parse(res);
+
+                    if (res.res == 0) {
+                        layer.msg(res.msg, {});
+                        setTimeout(() => {
+                            window.location.href = '{:U("Index/index")}';
+                        }, 300);
+                    } else {
+                        obj.upCode();
+                        layer.msg(res.msg, {
+                            anim: 6
+                        });
+                    }
+
+                })
+
+
+                return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+            });
+
+
+
+
+        });
+
+        var code = function () {
+            obj = {
+                config: {
+                    el: ''
+                },
+                init: function () {
+                    $(obj.config.el).css('cursor', 'pointer');
+                    $(document).on('click', obj.config.el, function () {
+                        obj.upCode();
+                    });
+                    obj.upCode();
+                },
+                upCode: function () {
+                    $(obj.config.el).attr('src', '__CONTROLLER__/getCode');
+                }
+            }
+            return obj;
+        }();
+
+
+        code.config.el = '#admin_code_img';
+        code.init();
+
+    </script>
+</body>
+
+</html>
